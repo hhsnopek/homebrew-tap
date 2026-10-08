@@ -1,0 +1,23 @@
+name: Update tailscale
+
+on:
+  schedule:
+    - cron: "17 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  update:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+      - run: .github/scripts/update-tailscale.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
