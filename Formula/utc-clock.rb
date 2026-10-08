@@ -5,6 +5,7 @@ class UtcClock < Formula
       tag:      "v1.0.0",
       revision: "deee357d19fb09dff5030c2342d3ca3553ddc2ed"
   license "MIT"
+  head "https://github.com/hhsnopek/utc-clock.git", branch: "main"
 
   depends_on :macos
 
