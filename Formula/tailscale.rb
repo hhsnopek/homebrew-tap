@@ -2,8 +2,8 @@ class Tailscale < Formula
   desc "WireGuard mesh VPN, with exit nodes that work in tailscaled on macOS"
   homepage "https://tailscale.com"
   url "https://github.com/tailscale/tailscale.git",
-      tag:      "v1.104.1",
-      revision: "9a522a9786c97eb7910c01ccb7bd66557b04c910"
+      tag:      "v1.104.4",
+      revision: "27047635f237d1f3e0b08c0f487674757f30d2f7"
   license "BSD-3-Clause"
 
   depends_on "go" => :build
@@ -48,7 +48,7 @@ class Tailscale < Formula
 end
 __END__
 diff --git a/wgengine/router/osrouter/router_userspace_bsd.go b/wgengine/router/osrouter/router_userspace_bsd.go
-index 88eda4c..81ab4f1 100644
+index 88eda4cbf85150bb02b4ed39b99d41752eeafe7b..81ab4f1633864b143827f8637aa9e10c7a23ce2c 100644
 --- a/wgengine/router/osrouter/router_userspace_bsd.go
 +++ b/wgengine/router/osrouter/router_userspace_bsd.go
 @@ -8,9 +8,11 @@
