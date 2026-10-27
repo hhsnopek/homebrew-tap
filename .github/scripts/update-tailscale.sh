@@ -23,10 +23,6 @@ if [ "$current" = "$latest" ]; then
 	exit 0
 fi
 branch="tailscale-$latest"
-if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
-	echo "$branch already has a pull request"
-	exit 0
-fi
 
 # issue opens an issue once; an open one with the same title means a person
 # already knows.
@@ -40,6 +36,17 @@ issue() {
 	fi
 	gh issue create --title "$1" --body "$2"
 }
+
+if [ "$(gh pr list --head "$branch" --state all --json number --jq length)" != 0 ]; then
+	echo "$branch already has a pull request"
+	exit 0
+fi
+# A branch without a pull request is an earlier run that pushed but could not
+# open one; failing keeps the release from going quietly unmerged.
+if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+	issue "Tailscale $latest has a branch but no pull request" "An earlier run pushed $branch but could not open its pull request. Open one from the branch, or delete the branch so the next run retries."
+	exit 1
+fi
 
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
